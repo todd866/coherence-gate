@@ -216,7 +216,7 @@ def plot_time_series(t, e_dig, e_ana, coherence, commit_time, N, K_taps):
              bbox=dict(boxstyle='round', facecolor='white', edgecolor='gray', alpha=0.9))
 
     ax1.set_ylabel('Cumulative Energy (J)', fontsize=12)
-    ax1.set_title('Energy Dissipation: Digital Simulation vs Coherence Gate',
+    ax1.set_title('Energy Dissipation Comparison',
                   fontsize=14, fontweight='bold')
     ax1.legend(loc='upper right', fontsize=10)
     ax1.grid(True, alpha=0.3, which='both')
@@ -264,7 +264,7 @@ def plot_n_scaling(results):
 
     ax.set_xlabel('Number of Oscillators (N)', fontsize=12)
     ax.set_ylabel('Energy Ratio (Digital / Coherence Gate)', fontsize=12)
-    ax.set_title('Scaling Advantage vs System Size', fontsize=14, fontweight='bold')
+    ax.set_title('Scaling Advantage vs System Size (N)', fontsize=14, fontweight='bold')
     ax.legend(fontsize=11, loc='lower right')
     ax.grid(True, alpha=0.3, which='both')
 
