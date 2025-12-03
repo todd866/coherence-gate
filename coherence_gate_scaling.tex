@@ -43,7 +43,7 @@ Current implementations, including HoloGraph, execute oscillator dynamics on con
 
 For a network of $N$ oscillators with dense coupling, this requires $O(N^2)$ floating-point operations per timestep. Even for sparse graphs with average degree $d$, the cost remains $O(N \cdot d)$ per timestep over potentially millions of integration steps.
 
-This paper establishes that this computational overhead is not merely an implementation detail but a \textbf{fundamental thermodynamic barrier} to scaling oscillatory neural networks on digital hardware. We then demonstrate that physical instantiation of oscillator coupling---where phase relationships evolve according to substrate physics without algorithmic intervention---eliminates this barrier entirely.
+This paper establishes that this computational overhead is not merely an implementation detail but a \textbf{fundamental thermodynamic barrier} to scaling oscillatory neural networks on digital hardware. This observation sits within the broader transition toward neuromorphic hardware outlined in recent roadmaps \citep{christensen2022roadmap}; however, we argue that the energy advantage of neuromorphic systems is lost if the coupling term itself remains algorithmic. We then demonstrate that physical instantiation of oscillator coupling---where phase relationships evolve according to substrate physics without algorithmic intervention---eliminates this barrier entirely.
 
 \subsection{The Core Insight}
 
@@ -201,7 +201,11 @@ Several substrate technologies could implement Coherence Gate hardware:
 
 \textbf{Memristive crossbars:} Phase-change or resistive memory elements providing programmable coupling weights with analog dynamics.
 
-Each pathway offers the key property: coupling occurs through physical component connectivity without algorithmic computation.
+Each pathway offers the key property: coupling occurs through physical component connectivity without algorithmic computation. Mixed-signal oscillatory neural networks such as SKONN \citep{delacour2023skonn} already demonstrate the viability of analog phase-domain computation, while recent work has begun to explore learning rules for physically coupled oscillator networks \citep{rageau2025equilibrium}. Our analysis complements these architectures by quantifying the scaling advantage of physically instantiated coupling over digital simulation.
+
+\subsection{Distinction from Physical Reservoir Computing}
+
+Our approach is distinct from physical reservoir computing, which typically leverages the high-dimensional, non-linear dynamics of a physical substrate (e.g., nanowire networks or memristive fabrics) to project inputs into a higher-dimensional feature space. While reservoirs exploit physical complexity for \emph{separability}, the Coherence Gate exploits physical synchronization for \emph{reducibility}. We use the substrate's tendency toward order (collapse onto coherent attractors) to bind features, rather than its tendency toward chaos (expansion into high-dimensional trajectories) to separate them. This collapse--not expansion--is what enables the $O(K)$ coherence monitoring to suffice.
 
 \subsection{Relation to Thermodynamic Computing}
 
