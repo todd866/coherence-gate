@@ -195,31 +195,30 @@ def run_time_trace(N=100, K_taps=20, T_max=2.0):
             np.array(analog_trace), np.array(coherence_trace), commit_time)
 
 def plot_time_series(t, e_dig, e_ana, coherence, commit_time, N, K_taps):
-    """FIG 12: Energy vs time comparison."""
+    """FIG 1: Energy vs time comparison."""
 
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8), sharex=True)
 
     # Top: Energy (log scale)
-    ax1.semilogy(t, e_dig, 'r-', lw=2,
-                 label=f'Digital Simulation\n(O(N²) coupling per step)')
-    ax1.semilogy(t, e_ana, 'g-', lw=2,
-                 label=f'Coherence Gate\n(O(K) coherence + static)')
+    ax1.semilogy(t, e_dig, 'r-', lw=2, label='Digital Simulation')
+    ax1.semilogy(t, e_ana, 'g-', lw=2, label='Coherence Gate')
 
     if commit_time:
         ax1.axvline(commit_time, color='blue', ls='--', alpha=0.7,
                     label=f'Commit (t={commit_time:.2f}s)')
 
     ratio = e_dig[-1] / e_ana[-1]
-    ax1.annotate(f'Advantage: {ratio:.0f}×',
-                 xy=(t[-1], e_ana[-1]),
-                 xytext=(t[-1]*0.6, e_ana[-1]*50),
-                 fontsize=12, fontweight='bold',
-                 arrowprops=dict(arrowstyle='->', color='green'))
+
+    # Text box in bottom right for advantage and complexity
+    textstr = f'Advantage: {ratio:.0f}×\n\nDigital: O(N²) per step\nPhysical: O(K) per step'
+    ax1.text(0.98, 0.02, textstr, transform=ax1.transAxes, fontsize=10,
+             verticalalignment='bottom', horizontalalignment='right', fontweight='bold',
+             bbox=dict(boxstyle='round', facecolor='white', edgecolor='gray', alpha=0.9))
 
     ax1.set_ylabel('Cumulative Energy (J)', fontsize=12)
-    ax1.set_title(f'Energy Dissipation: Digital Simulation vs Coherence Gate',
+    ax1.set_title('Energy Dissipation: Digital Simulation vs Coherence Gate',
                   fontsize=14, fontweight='bold')
-    ax1.legend(loc='center right', fontsize=9)
+    ax1.legend(loc='upper right', fontsize=10)
     ax1.grid(True, alpha=0.3, which='both')
 
     # Bottom: Coherence
@@ -236,11 +235,11 @@ def plot_time_series(t, e_dig, e_ana, coherence, commit_time, N, K_taps):
     ax2.grid(True, alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig('/Users/iantodd/Desktop/highdimensional/00_coherence_compute/simulations/fig12_energy_vs_time.pdf',
+    plt.savefig('/Users/iantodd/Desktop/highdimensional/24_coherence_gate_paper/figures/fig_energy_comparison.pdf',
                 dpi=300, bbox_inches='tight')
-    plt.savefig('/Users/iantodd/Desktop/highdimensional/00_coherence_compute/simulations/fig12_energy_vs_time.png',
+    plt.savefig('/Users/iantodd/Desktop/highdimensional/24_coherence_gate_paper/figures/fig_energy_comparison.png',
                 dpi=150, bbox_inches='tight')
-    print("Saved: fig12_energy_vs_time.pdf")
+    print("Saved: figures/fig_energy_comparison.pdf")
 
 def plot_n_scaling(results):
     """FIG 13: Energy ratio vs N showing O(N²) scaling."""
@@ -275,11 +274,11 @@ def plot_n_scaling(results):
             bbox=dict(boxstyle='round', facecolor='white', edgecolor='gray', alpha=0.9))
 
     plt.tight_layout()
-    plt.savefig('/Users/iantodd/Desktop/highdimensional/00_coherence_compute/simulations/fig13_n_scaling.pdf',
+    plt.savefig('/Users/iantodd/Desktop/highdimensional/24_coherence_gate_paper/figures/fig_scaling.pdf',
                 dpi=300, bbox_inches='tight')
-    plt.savefig('/Users/iantodd/Desktop/highdimensional/00_coherence_compute/simulations/fig13_n_scaling.png',
+    plt.savefig('/Users/iantodd/Desktop/highdimensional/24_coherence_gate_paper/figures/fig_scaling.png',
                 dpi=150, bbox_inches='tight')
-    print("Saved: fig13_n_scaling.pdf")
+    print("Saved: figures/fig_scaling.pdf")
 
 def print_patent_example(results, N_example=100):
     """Generate patent-style example text."""
